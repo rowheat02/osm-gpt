@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+OSM-GPT
+=====================================================
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+Introduction
+------------
+
+Welcome to the OSM-GPT, where we leverage the power of GPT-3 and the Overpass API to provide a seamless and intuitive experience for discovering features on OpenStreetMap. This project aims to bridge the gap between natural language queries and querying the OpenStreetMap database, making it easy for users to explore and uncover the treasures hidden within.
+
+Features
+--------
+
+-   Natural Language Queries: With the assistance of GPT-3, users can effortlessly express their queries in everyday language, eliminating the need to learn complex query languages or syntax.
+-   Overpass API Integration: Our project integrates with the powerful Overpass API, which allows us to fetch features from OpenStreetMap based on the interpreted natural language queries.
+-   User-Friendly Interface: Our application provides a user-friendly interface that guides users through the process of submitting queries, viewing results, and navigating the mapped features on OpenStreetMap.
+
+
+Installation
+------------
+
+To run the OpenStreetMap Exploration project, follow these steps:
+
+1.  Clone the project repository from GitHub: `git clone https://github.com/yourusername/openstreetmap-exploration.git`
+2.  Install the required dependencies using `npm`: `npm install`
+3.  Obtain the necessary API keys and credentials for Openai.
+4.  create `.env` file in root directory and update with following variables
+
 ```
+OPENAI_API_KEY= your_openai_api_key
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
+5.  Launch the application by running the main script: `npm run dev` or `npm run build`-> `npm start`
+6.  Access the application through your web browser at `http://localhost:3000` or the specified port.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Note: Ensure that you have a stable internet connection to utilize the Overpass API and connect with GPT-3.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+Contribution
+------------
 
-To learn more about Next.js, take a look at the following resources:
+We welcome contributions to enhance and expand the OpenStreetMap Exploration project. If you have any ideas, bug fixes, or feature enhancements, please submit them as pull requests on our GitHub repository. Together, we can make the OpenStreetMap exploration experience even more powerful and user-friendly.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+License
+-------
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute the codebase according to the terms of this license.
 
-## Deploy on Vercel
+Acknowledgments
+----------------
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We would like to express our gratitude to OpenAI for providing the GPT-3 technology, as well as the OpenStreetMap community for their valuable contributions and the availability of the Overpass API. Without their support, this project would not have been possible. 
+- Initial Openai prompts are inspired from https://github.com/steveattewell/osm-ai-map
+- Theme and ui components from shadcnui
+- Always Tailwind for css
+- And kudos for nextjs team who crated nextjs where I can write client side and server side code simultaneously 
+  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Contact
+-------
+
+If you have any questions, feedback, or suggestions regarding the OpenStreetMap Exploration project, please don't hesitate to contact our team at rowheat141@gmail.com We appreciate your interest and look forward to hearing from you.
+
+Happy mapping and exploring with OpenStreetMap and GPT-3!
