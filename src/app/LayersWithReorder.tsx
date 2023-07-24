@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   DragDropContext,
   Draggable,
@@ -7,12 +7,7 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { dynamicgeojson, layer } from "./page";
-import {
-  ArrowDownToLine,
-  GripVertical,
-  Pipette,
-  Trash,
-} from "lucide-react";
+import { ArrowDownToLine, GripVertical, Pipette, Trash } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -134,13 +129,7 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
                           )}
                         >
                           <GripVertical color="grey" />
-                          {/* <div
-                          className="w-4 h-4 mx-1"
-                          style={{ background: color }}
-                        /> */}
 
-                          {/* Circle */}
-                          {/* <Switch className="h-[15px] w-[35px] mr-1"/> */}
                           <Popover>
                             <PopoverTrigger>
                               <Pipette
@@ -175,13 +164,10 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
                                 height: "15px",
                                 borderRadius: "50%",
                                 background: color,
-                                // marginBottom: "10px",
+
                                 marginRight: 2,
                                 cursor: "pointer",
                                 opacity: ifhaspoint?.visibleOnMap ? 1 : 0.2,
-                                // border: `${
-                                //   ifhaspoint?.visibleOnMap ? 1 : 0
-                                // }px solid green`,
                               }}
                               onClick={() => {
                                 onSymbolClick(id, "Point");
@@ -201,9 +187,6 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
                                 marginRight: 5,
                                 cursor: "pointer",
                                 opacity: ifhasline?.visibleOnMap ? 1 : 0.2,
-                                // border: `${
-                                //   ifhasline?.visibleOnMap ? 1 : 0
-                                // }px solid green`,
                               }}
                               onClick={() => {
                                 onSymbolClick(id, "Line");
@@ -218,13 +201,10 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
                                 width: "15px",
                                 height: "15px",
                                 background: color,
-                                // marginBottom: "10px",
+
                                 marginRight: 4,
                                 cursor: "pointer",
                                 opacity: ifhaspolygon?.visibleOnMap ? 1 : 0.2,
-                                // border: `${
-                                //   ifhaspolygon?.visibleOnMap ? 1 : 0
-                                // }px solid green`,
                               }}
                               onClick={() => {
                                 onSymbolClick(id, "Polygon");
@@ -240,13 +220,10 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
                               <MenubarTrigger className="px-0  py-0">
                                 <ArrowDownToLine
                                   className="cursor-pointer "
-                                  // color="grey"
                                   size={20}
                                 />
                               </MenubarTrigger>
                               <MenubarContent>
-                        
-
                                 <MenubarItem
                                   onClick={(e: any) => {
                                     downloadGeojson(geojson, name);

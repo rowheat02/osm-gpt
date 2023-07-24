@@ -21,13 +21,13 @@ Installation
 
 To run the OpenStreetMap Exploration project, follow these steps:
 
-1.  Clone the project repository from GitHub: `git clone https://github.com/yourusername/openstreetmap-exploration.git`
+1.  Clone the project repository from GitHub: `git clone https://github.com/rowheat02/osm-gpt.git`
 2.  Install the required dependencies using `npm`: `npm install`
 3.  Obtain the necessary API keys and credentials for Openai.
 4.  create `.env` file in root directory and update with following variables
 
 ```
-OPENAI_API_KEY= your_openai_api_key
+OPENAI_API_KEY=your_openai_api_key
 
 ```
 5.  Launch the application by running the main script: `npm run dev` or `npm run build`-> `npm start`
@@ -53,12 +53,12 @@ We would like to express our gratitude to OpenAI for providing the GPT-3 technol
 - Initial Openai prompts are inspired from https://github.com/steveattewell/osm-ai-map
 - Theme and ui components from shadcnui
 - Always Tailwind for css
-- And kudos for nextjs team who crated nextjs where I can write client side and server side code simultaneously 
+- Also, kudos to the nextjs team for creating a framework where I can write server and client code at the same time 
   
 
 Contact
 -------
 
-If you have any questions, feedback, or suggestions regarding the OpenStreetMap Exploration project, please don't hesitate to contact our team at rowheat141@gmail.com We appreciate your interest and look forward to hearing from you.
+If you have any questions, feedback, or suggestions regarding the OSM-GPT, please don't hesitate to contact our team at rowheat141@gmail.com We appreciate your interest and look forward to hearing from you.
 
-Happy mapping and exploring with OpenStreetMap and GPT-3!
+Happy mapping and exploring with OpenStreetMap!

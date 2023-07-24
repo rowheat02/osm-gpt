@@ -3,7 +3,7 @@
 import { Input } from "@/components/ui/input";
 import MapContainer from "@/components/Maplibre/MapContainer";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import useMapboxMap from "@/components/Maplibre/useMapboxMap";
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -16,15 +16,13 @@ import {
   getRandomDarkColor,
   getboundtext,
 } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import RunningSvg from "@/assets/animatingsvg/run";
 import { Separator } from "@/components/ui/separator";
 import ReorderComponent from "./LayersWithReorder";
-import { dummylayers } from "./dummylayers";
 
 import { Toaster, toast } from "sonner";
 
-// import r from '@/lib/osmtogeojson'
 var osmtogeojson = require("@/lib/osmtogeojson");
 
 type querystates =
@@ -86,8 +84,7 @@ export default function Home() {
     if (overpassAbortController) overpassAbortController.abort();
     queryAbortController = new AbortController();
     overpassAbortController = new AbortController();
-    // forquerygeneratorapi.abort();
-    // forquerygeneratorapi.abort();
+
 
     let respjson = {
       osmquery: "",
@@ -129,7 +126,6 @@ export default function Home() {
         };
       } else {
         setExtractedQuery({
-          // osmquery: respJson?.osmquery,
           osmquery: extractedQuery?.osmquery || "",
           query_name: userinput || "",
         });
@@ -157,7 +153,6 @@ export default function Home() {
         }
       );
       const overpassrespjson = await overpassResponse.json();
-      // setGeojson({ ...osmtogeojson(overpassrespjson) });
       const toGeojson = { ...osmtogeojson(overpassrespjson) };
 
       const geomtypes: ContainingGeometries = getAllGeomTypes(toGeojson);
@@ -231,7 +226,6 @@ export default function Home() {
                 maploaded={maploaded}
                 containingGeometries={layer.containingGeometries}
               />
-
             );
           })}
         </MapContainer>
@@ -248,7 +242,6 @@ export default function Home() {
             {/* eslint-disable-next-line */}
             Easily Discover OpenStreetMap's Treasures{" "}
           </p>
-
         </div>
         {queryState === "generating_query" && (
           <div className="w-full  my-2 flex flex-col items-center justify-center">
@@ -260,7 +253,6 @@ export default function Home() {
         {(activeTab === "manual" || !["idle"].includes(queryState)) && (
           <div className="w-full my-2 flex flex-col items-center justify-center">
             <div className="w-full my-4 flex items-center justify-center">
-      
               <Textarea
                 placeholder="osm query"
                 value={extractedQuery?.osmquery || ""}
@@ -295,7 +287,6 @@ export default function Home() {
                 !e.shiftKey &&
                 inputRef?.current?.value !== ""
               ) {
-
                 e.preventDefault();
                 extractFeatures(inputRef.current?.value || "");
               }
