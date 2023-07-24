@@ -202,7 +202,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!map) return;
-    layers.forEach((lyr) => {
+    JSON.parse(JSON.stringify(layers)).reverse().forEach((lyr:layer) => {
       ["Point", "Line", "Polygon"].forEach((a) => {
         map.moveLayer(`${lyr.id}-${a}`);
       });
@@ -252,7 +252,6 @@ export default function Home() {
             mobileSidebarOpen ? "right-[80%]" : "right-0"
           } md:right-0 md:hidden`}
           size={40}
-
         />
       )}
 

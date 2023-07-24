@@ -40,10 +40,10 @@ function useMapboxMap(options: any) {
     };
 
     const mapInstance = new mapgl.Map(opts);
-    mapInstance.addControl(
-      new mapgl.NavigationControl(),
-      'top-left'
-    );
+    // mapInstance.addControl(
+    //   new mapgl.NavigationControl(),
+    //   'top-left'
+    // );
 
     mapInstance.on("load", () => {
       setMaploaded(true);
