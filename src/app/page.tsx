@@ -5,7 +5,7 @@ import MapContainer from "@/components/Maplibre/MapContainer";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import useMapboxMap from "@/components/Maplibre/useMapboxMap";
+import useMapboxMap from "@/components/Maplibre/useMaplibreMap";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import GeojsonLayer from "@/components/Maplibre/GeojsonLayer";
 import Generating from "@/assets/animatingsvg/generating";
@@ -22,6 +22,7 @@ import { Separator } from "@/components/ui/separator";
 import ReorderComponent from "./LayersWithReorder";
 
 import { Toaster, toast } from "sonner";
+import { ChevronLeftSquare, ChevronRightSquare, Play } from "lucide-react";
 
 var osmtogeojson = require("@/lib/osmtogeojson");
 
@@ -78,13 +79,14 @@ export default function Home() {
 
   const [layers, setLayers] = useState<layer[]>([]);
 
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
   const extractFeatures = async (userinput?: string) => {
     setQueryState("generating_query");
     if (queryAbortController) queryAbortController.abort();
     if (overpassAbortController) overpassAbortController.abort();
     queryAbortController = new AbortController();
     overpassAbortController = new AbortController();
-
 
     let respjson = {
       osmquery: "",
@@ -213,7 +215,7 @@ export default function Home() {
       <div className="absolute z-30 p-2">
         <ReorderComponent layers={layers} setLayers={setLayers} />
       </div>
-      <div id="map-container" className="w-[75%] relative">
+      <div id="map-container" className="w-full md:w-[75%] relative">
         <MapContainer mapRef={mapRef} style={{ width: "100%", height: "100%" }}>
           {layers.map((layer, i) => {
             return (
@@ -231,9 +233,34 @@ export default function Home() {
         </MapContainer>
       </div>
 
+      {mobileSidebarOpen ? (
+        <ChevronRightSquare
+          onClick={() => {
+            setMobileSidebarOpen(!mobileSidebarOpen);
+          }}
+          className={`absolute bg-secondary top-[50%] ${
+            mobileSidebarOpen ? "right-[80%]" : "right-0"
+          } md:right-0 md:hidden`}
+          size={40}
+        />
+      ) : (
+        <ChevronLeftSquare
+          onClick={() => {
+            setMobileSidebarOpen(!mobileSidebarOpen);
+          }}
+          className={`absolute  top-[50%] ${
+            mobileSidebarOpen ? "right-[80%]" : "right-0"
+          } md:right-0 md:hidden`}
+          size={40}
+
+        />
+      )}
+
       <div
         id="querybar"
-        className="w-[25%] bg-secondary rounded-md p-4 flex flex-col items-center "
+        className={`absolute right-0 h-full w-[80%] md:w-[25%] bg-secondary rounded-md p-4  flex-col items-center 
+        ${mobileSidebarOpen ? "flex" : "hidden"} md:flex
+        `}
       >
         <div className="flex-1 flex flex-col items-center justify-start ">
           <h2 className="text-4xl font-bold text-center"> OSM-GPT</h2>
@@ -264,6 +291,7 @@ export default function Home() {
                 }
                 rows={7}
                 className="bg-slate-600 text-white"
+                disabled={activeTab !== "manual"}
               />
             </div>
             {queryState === "extracting_from_osm" && (
@@ -272,13 +300,16 @@ export default function Home() {
           </div>
         )}
 
+        {activeTab === "manual" && (
+          <label className="text-center self-start p-1 text-sm">
+            Name of your query
+          </label>
+        )}
         <div className="w-full flex items-center justify-center gap-2">
           <Input
             type="email"
             placeholder={
-              activeTab === "askgpt"
-                ? "eg: get all restaurants"
-                : "Name of the query"
+              activeTab === "askgpt" ? "eg: get all restaurants" : "query name"
             }
             ref={inputRef}
             onKeyDown={(e) => {
@@ -299,6 +330,8 @@ export default function Home() {
           onClick={() => {
             if (inputRef?.current?.value !== "") {
               extractFeatures(inputRef.current?.value || "");
+            } else {
+              inputRef.current?.focus();
             }
           }}
         >
@@ -326,6 +359,7 @@ export default function Home() {
                 setActiveTab("askgpt");
                 inputRef.current!.value = "";
                 setQueryState("idle");
+                setExtractedQuery({ osmquery: "", query_name: "" });
               }}
             >
               Ask GPT
@@ -338,6 +372,7 @@ export default function Home() {
               onClick={() => {
                 setActiveTab("manual");
                 setQueryState("idle");
+                inputRef.current!.value = extractedQuery?.query_name || "";
               }}
             >
               Manual Query
