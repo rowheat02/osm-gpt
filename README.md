@@ -59,6 +59,6 @@ We would like to express our gratitude to OpenAI for providing the GPT-3 technol
 Contact
 -------
 
-If you have any questions, feedback, or suggestions regarding the OSM-GPT, please don't hesitate to contact our team at rowheat141@gmail.com We appreciate your interest and look forward to hearing from you.
+If you have any questions, feedback, or suggestions regarding the OSM-GPT, please don't hesitate to contact me at rowheat141@gmail.com I appreciate your interest and look forward to hearing from you.
 
 Happy mapping and exploring with OpenStreetMap!
