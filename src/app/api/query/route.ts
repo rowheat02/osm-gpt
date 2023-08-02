@@ -36,7 +36,6 @@ export async function POST(req: Request, res: NextResponse) {
   try {
     const initialResponse = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-0613",
-      // model: "gpt-4",
       messages,
     });
     const initialResponseJson = await initialResponse.json();
@@ -48,7 +47,7 @@ export async function POST(req: Request, res: NextResponse) {
       throw err;
     }
     if (initialResponse.status === 429) {
-      err.name = "Rate Limited";
+      err.name = "Error 429: Rate limit exceeded or quota reached";
       err.cause = 429;
       throw err;
     }
