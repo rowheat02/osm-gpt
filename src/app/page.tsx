@@ -23,6 +23,7 @@ import ReorderComponent from "./LayersWithReorder";
 
 import { Toaster, toast } from "sonner";
 import { ChevronLeftSquare, ChevronRightSquare, Play } from "lucide-react";
+import Popup from "@/components/Maplibre/popup";
 
 var osmtogeojson = require("@/lib/osmtogeojson");
 
@@ -202,11 +203,13 @@ export default function Home() {
 
   useEffect(() => {
     if (!map) return;
-    JSON.parse(JSON.stringify(layers)).reverse().forEach((lyr:layer) => {
-      ["Point", "Line", "Polygon"].forEach((a) => {
-        map.moveLayer(`${lyr.id}-${a}`);
+    JSON.parse(JSON.stringify(layers))
+      .reverse()
+      .forEach((lyr: layer) => {
+        ["Point", "Line", "Polygon"].forEach((a) => {
+          map.moveLayer(`${lyr.id}-${a}`);
+        });
       });
-    });
   }, [layers, map]);
 
   return (
@@ -230,6 +233,7 @@ export default function Home() {
               />
             );
           })}
+          <Popup map={map} />
         </MapContainer>
       </div>
 
