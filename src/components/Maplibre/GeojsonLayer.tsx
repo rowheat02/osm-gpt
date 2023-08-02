@@ -39,8 +39,6 @@ function GeojsonLayer({
         paint: {
           "fill-color": color,
           "fill-opacity": 1,
-          // "fill-outline-color":'green',
-          // "fill-outline-width":1,
         },
         filter: [
           "match",
@@ -84,6 +82,26 @@ function GeojsonLayer({
         filter: ["==", "$type", "Point"],
       });
     }
+
+    map.on("mouseenter", `${id}-Point`, () => {
+      console.log("apo", id);
+      map.getCanvas().style.cursor = "pointer";
+    });
+    map.on("mouseleave", `${id}-Point`, () => {
+      map.getCanvas().style.cursor = "";
+    });
+    map.on("mouseenter", `${id}-Line`, () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+    map.on("mouseleave", `${id}-Line`, () => {
+      map.getCanvas().style.cursor = "";
+    });
+    map.on("mouseenter", `${id}-Polygon`, () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+    map.on("mouseleave", `${id}-Polygon`, () => {
+      map.getCanvas().style.cursor = "";
+    });
 
     return () => {
       if (map.getLayer(`${id}-Point`)) {
