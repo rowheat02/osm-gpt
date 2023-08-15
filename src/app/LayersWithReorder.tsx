@@ -29,7 +29,6 @@ import {
 } from "@/components/ui/menubar";
 import { HexColorPicker } from "react-colorful";
 import { LngLatBoundsLike, Map } from "maplibre-gl";
-import { BBox } from "geojson";
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   padding: 2,
@@ -294,6 +293,17 @@ function LayersReorder({ layers, setLayers, map }: layerReorderPropType) {
                               </MenubarContent>
                             </MenubarMenu>
                           </Menubar>
+
+                          <Expand
+                            className="cursor-pointer mr-1 hover:bg-gray-300"
+                            // color="grey"
+                            size={15}
+                            onClick={() => {
+                              map.fitBounds(bbox as LngLatBoundsLike, {
+                                padding: 20,
+                              });
+                            }}
+                          />
                           <Trash
                             className="cursor-pointer hover:bg-gray-300"
                             // color="grey"
@@ -302,16 +312,6 @@ function LayersReorder({ layers, setLayers, map }: layerReorderPropType) {
                               setLayers([
                                 ...layers.filter((lyr) => lyr.id !== id),
                               ]);
-                            }}
-                          />
-                          <Expand
-                            className="cursor-pointer ml-1 hover:bg-gray-300"
-                            // color="grey"
-                            size={15}
-                            onClick={() => {
-                              map.fitBounds(bbox as LngLatBoundsLike, {
-                                padding: 20,
-                              });
                             }}
                           />
                         </div>
