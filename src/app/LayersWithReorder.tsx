@@ -7,7 +7,13 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { dynamicgeojson, layer } from "./page";
-import { ArrowDownToLine, GripVertical, Pipette, Trash } from "lucide-react";
+import {
+  ArrowDownToLine,
+  Expand,
+  GripVertical,
+  Pipette,
+  Trash,
+} from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -22,6 +28,8 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { HexColorPicker } from "react-colorful";
+import { LngLatBoundsLike, Map } from "maplibre-gl";
+import { BBox } from "geojson";
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   padding: 2,
@@ -41,9 +49,10 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
 type layerReorderPropType = {
   layers: layer[];
   setLayers: React.Dispatch<React.SetStateAction<layer[]>>;
+  map: Map;
 };
 
-function LayersReorder({ layers, setLayers }: layerReorderPropType) {
+function LayersReorder({ layers, setLayers, map }: layerReorderPropType) {
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
     if (!destination) return;
@@ -102,7 +111,10 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
               ref={provided.innerRef}
             >
               {layers.map(
-                ({ id, name, color, containingGeometries, geojson }, index) => {
+                (
+                  { id, name, color, containingGeometries, geojson, bbox },
+                  index
+                ) => {
                   const ifhaspoint = containingGeometries.find(
                     (ge) => ge.type === "Point"
                   );
@@ -133,7 +145,7 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
                           <Popover>
                             <PopoverTrigger>
                               <Pipette
-                                className="mr-1 cursor-pointer"
+                                className="mr-1 cursor-pointer hover:bg-gray-300"
                                 size={15}
                               />
                             </PopoverTrigger>
@@ -219,7 +231,7 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
                             <MenubarMenu>
                               <MenubarTrigger className="px-0  py-0">
                                 <ArrowDownToLine
-                                  className="cursor-pointer "
+                                  className="cursor-pointer hover:bg-gray-300"
                                   size={20}
                                 />
                               </MenubarTrigger>
@@ -283,13 +295,23 @@ function LayersReorder({ layers, setLayers }: layerReorderPropType) {
                             </MenubarMenu>
                           </Menubar>
                           <Trash
-                            className="cursor-pointer "
+                            className="cursor-pointer hover:bg-gray-300"
                             // color="grey"
                             size={15}
                             onClick={() => {
                               setLayers([
                                 ...layers.filter((lyr) => lyr.id !== id),
                               ]);
+                            }}
+                          />
+                          <Expand
+                            className="cursor-pointer ml-1 hover:bg-gray-300"
+                            // color="grey"
+                            size={15}
+                            onClick={() => {
+                              map.fitBounds(bbox as LngLatBoundsLike, {
+                                padding: 20,
+                              });
                             }}
                           />
                         </div>
