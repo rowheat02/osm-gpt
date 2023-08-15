@@ -11,7 +11,9 @@ import GeojsonLayer from "@/components/Maplibre/GeojsonLayer";
 import Generating from "@/assets/animatingsvg/generating";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  OverpassPayload,
   addLineBreaks,
+  generateBboxFromOverpassPayload,
   getAllGeomTypes,
   getRandomDarkColor,
   getboundtext,
@@ -53,6 +55,7 @@ export interface layer {
     visibleOnMap: boolean;
     type: string;
   }[];
+  bbox: number[];
 }
 
 export type ContainingGeometries = layer["containingGeometries"];
@@ -155,7 +158,9 @@ export default function Home() {
         `,
         }
       );
-      const overpassrespjson = await overpassResponse.json();
+      const overpassrespjson: OverpassPayload = await overpassResponse.json();
+
+      const bbox = generateBboxFromOverpassPayload(overpassrespjson);
       const toGeojson = { ...osmtogeojson(overpassrespjson) };
 
       const geomtypes: ContainingGeometries = getAllGeomTypes(toGeojson);
@@ -170,6 +175,7 @@ export default function Home() {
             color: getRandomDarkColor([...layers.map((lyr) => lyr.color)]),
             id: `${Date.now()}`,
             containingGeometries: geomtypes,
+            bbox: bbox,
           },
           ...layers,
         ]);
@@ -211,12 +217,11 @@ export default function Home() {
         });
       });
   }, [layers, map]);
-
   return (
     <main className="flex min-h-screen flex-row ">
       <Toaster richColors position="top-right" />
       <div className="absolute z-30 p-2">
-        <ReorderComponent layers={layers} setLayers={setLayers} />
+        <ReorderComponent layers={layers} setLayers={setLayers} map={map} />
       </div>
       <div id="map-container" className="w-full md:w-[75%] relative">
         <MapContainer mapRef={mapRef} style={{ width: "100%", height: "100%" }}>
