@@ -97,3 +97,47 @@ export function getRandomDarkColor(referenceColors: string[]): string {
   // If a different color couldn't be found within the allowed attempts, return the last generated color that failed the check
   return referenceColors[referenceColors.length - 1];
 }
+
+interface Osm3s {
+  timestamp_osm_base: string;
+  copyright: string;
+}
+
+interface Element {
+  type: string;
+  id: number;
+  nodes?: number[];
+  tags?: Record<string, string>;
+  lat?: number;
+  lon?: number;
+}
+
+export interface OverpassPayload {
+  version: number;
+  generator: string;
+  osm3s: Osm3s;
+  elements: Element[];
+}
+export function generateBboxFromOverpassPayload(payload: OverpassPayload) {
+  let minLat = Infinity;
+  let minLon = Infinity;
+  let maxLat = -Infinity;
+  let maxLon = -Infinity;
+
+  for (const element of payload.elements || []) {
+    if (element.lat !== undefined && element.lon !== undefined) {
+      const lat = element.lat;
+      const lon = element.lon;
+
+      minLat = Math.min(minLat, lat);
+      minLon = Math.min(minLon, lon);
+      maxLat = Math.max(maxLat, lat);
+      maxLon = Math.max(maxLon, lon);
+    }
+  }
+
+  const bbox = [minLon, minLat, maxLon, maxLat];
+  // const bbox = `${minLon},${minLat},${maxLon},${maxLat}`;
+
+  return bbox;
+}
