@@ -22,7 +22,6 @@ const Popup: React.FC<PopupProps> = ({
 
   const [popupProperties, setPopupProperties] = useState<any>(null);
 
-
   useEffect(() => {
     if (!map) return;
 
@@ -30,7 +29,6 @@ const Popup: React.FC<PopupProps> = ({
       const features = map.queryRenderedFeatures(e.point);
       if (features.length > 0) {
         if (!disablePopup) {
-
           onFeatureClick(features[0]);
 
           setPopupProperties(features[0]?.properties);
@@ -49,18 +47,20 @@ const Popup: React.FC<PopupProps> = ({
     };
   }, [map, disablePopup]);
 
-
-
   return (
     <div style={{ display: "none" }} className="mypop">
       {/* <div ref={popupRef}>{children}</div> */}
-      <div ref={popupRef} className="max-w-[400px]">
+      <div ref={popupRef} className="px-1 h-64">
         {popupProperties &&
           Object.keys(popupProperties).map((prop, i) => {
             return (
-              <div className="flex" key={`prop-${i}`}>
-                <span className="bg-slate-400 mx-2 min-w-[120px] border p-1">{prop}</span>
-                <span className="p-1">{popupProperties[prop]}</span>
+              <div className="flex even:bg-gray-200" key={`prop-${i}`}>
+                <span className="min-w-[120px] p-1 capitalize font-bold">
+                  {prop}
+                </span>
+                <span className="p-1 flex-1 min-w-[140px] ">
+                  {popupProperties[prop]}
+                </span>
               </div>
             );
           })}
