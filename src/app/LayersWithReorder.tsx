@@ -247,9 +247,15 @@ function LayersReorder({ layers, setLayers, map }: layerReorderPropType) {
                                   <MenubarItem
                                     onClick={(e: any) => {
                                       downloadGeojson(
-                                        geojson?.features?.filter((f: any) =>
-                                          ["Point"].includes(f.geometry?.type)
-                                        ),
+                                        {
+                                          type: "FeatureCollection",
+                                          features: geojson?.features?.filter(
+                                            (f: any) =>
+                                              ["Point"].includes(
+                                                f.geometry?.type
+                                              )
+                                          ),
+                                        },
                                         name
                                       );
                                     }}
@@ -261,12 +267,16 @@ function LayersReorder({ layers, setLayers, map }: layerReorderPropType) {
                                   <MenubarItem
                                     onClick={(e: any) => {
                                       downloadGeojson(
-                                        geojson?.features?.filter((f: any) =>
-                                          [
-                                            "LineString",
-                                            "MultiLineString",
-                                          ].includes(f.geometry?.type)
-                                        ),
+                                        {
+                                          type: "FeatureCollection",
+                                          features: geojson?.features?.filter(
+                                            (f: any) =>
+                                              [
+                                                "LineString",
+                                                "MultiLineString",
+                                              ].includes(f.geometry?.type)
+                                          ),
+                                        },
                                         name
                                       );
                                     }}
@@ -278,11 +288,16 @@ function LayersReorder({ layers, setLayers, map }: layerReorderPropType) {
                                   <MenubarItem
                                     onClick={(e: any) => {
                                       downloadGeojson(
-                                        geojson?.features?.filter((f: any) =>
-                                          ["Polygon", "MultiPolygon"].includes(
-                                            f.geometry?.type
-                                          )
-                                        ),
+                                        {
+                                          type: "FeatureCollection",
+                                          features: geojson?.features?.filter(
+                                            (f: any) =>
+                                              [
+                                                "Polygon",
+                                                "MultiPolygon",
+                                              ].includes(f.geometry?.type)
+                                          ),
+                                        },
                                         name
                                       );
                                     }}
