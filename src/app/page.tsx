@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { Input } from "@/components/ui/input";
@@ -26,6 +27,8 @@ import ReorderComponent from "./LayersWithReorder";
 import { Toaster, toast } from "sonner";
 import { ChevronLeftSquare, ChevronRightSquare, Play } from "lucide-react";
 import Popup from "@/components/Maplibre/popup";
+import osmgptlogo from "@/assets/logos/osmgpt-noname.png";
+import Image from "next/image";
 
 var osmtogeojson = require("@/lib/osmtogeojson");
 
@@ -271,7 +274,10 @@ export default function Home() {
         `}
       >
         <div className="flex-1 flex flex-col items-center justify-start ">
-          <h2 className="text-4xl font-bold text-center"> OSM-GPT</h2>
+          <div className="flex items-center justify-center gap-1">
+            <Image src={osmgptlogo} alt="logo" width={50} />
+            <h2 className="text-2xl font-bold text-center"> OSM-GPT</h2>
+          </div>
 
           <p className="text-center">
             {/* eslint-disable-next-line */}
