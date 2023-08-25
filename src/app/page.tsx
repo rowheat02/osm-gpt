@@ -269,130 +269,133 @@ export default function Home() {
 
       <div
         id="querybar"
-        className={`absolute right-0 h-full w-[80%] md:w-[25%] bg-secondary rounded-md p-4  flex-col items-center 
+        className={`absolute right-0 h-full w-[80%] md:w-[25%] bg-secondary rounded-md  flex-col items-center justify-between bg-opacity-25 bg-[#F6F8FB]
         ${mobileSidebarOpen ? "flex" : "hidden"} md:flex
         `}
       >
-        <div className="flex-1 flex flex-col items-center justify-start ">
-          <div className="flex items-center justify-center gap-1">
-            <Image src={osmgptlogo} alt="logo" width={50} />
+        <div className="flex flex-col items-center justify-start bg-[#F1F5F9] py-6 px-4">
+          <div className="flex items-center justify-center gap-[1px] flex-col">
+            <Image src={osmgptlogo} alt="logo" width={56} height={56} />
             <h2 className="text-2xl font-bold text-center"> OSM-GPT</h2>
+            <p className="text-center">
+              {/* eslint-disable-next-line */}
+              Easily Discover OpenStreetMap's Treasures
+            </p>
           </div>
-
-          <p className="text-center">
-            {/* eslint-disable-next-line */}
-            Easily Discover OpenStreetMap's Treasures{" "}
-          </p>
         </div>
-        {queryState === "generating_query" && (
-          <div className="w-full  my-2 flex flex-col items-center justify-center">
-            <p>Generating query . . .</p>
-            <Generating />
-          </div>
-        )}
-
-        {(activeTab === "manual" || !["idle"].includes(queryState)) && (
-          <div className="w-full my-2 flex flex-col items-center justify-center">
-            <div className="w-full my-4 flex items-center justify-center">
-              <Textarea
-                placeholder="osm query"
-                value={extractedQuery?.osmquery || ""}
-                onChange={(e) =>
-                  setExtractedQuery({
-                    query_name: extractedQuery?.osmquery || "",
-                    osmquery: e.target.value,
-                  })
-                }
-                rows={7}
-                className="bg-slate-600 text-white"
-                disabled={activeTab !== "manual"}
-              />
+        <div className="h-fit w-full px-4">
+          {queryState === "generating_query" && (
+            <div className="w-full  my-2 flex flex-col items-center justify-center">
+              <p>Generating query . . .</p>
+              <Generating />
             </div>
-            {queryState === "extracting_from_osm" && (
-              <p className="animate-bounce">Fetching from Overpass . . .</p>
-            )}
-          </div>
-        )}
+          )}
 
-        {activeTab === "manual" && (
-          <label className="text-center self-start p-1 text-sm">
-            Name of your query
-          </label>
-        )}
-        <div className="w-full flex items-center justify-center gap-2">
-          <Input
-            type="email"
-            placeholder={
-              activeTab === "askgpt" ? "eg: get all restaurants" : "query name"
-            }
-            ref={inputRef}
-            onKeyDown={(e) => {
-              if (
-                e.key === "Enter" &&
-                !e.shiftKey &&
-                inputRef?.current?.value !== ""
-              ) {
-                e.preventDefault();
+          {(activeTab === "manual" || !["idle"].includes(queryState)) && (
+            <div className="w-full my-2 flex flex-col items-center justify-center">
+              <div className="w-full my-4 flex items-center justify-center">
+                <Textarea
+                  placeholder="osm query"
+                  value={extractedQuery?.osmquery || ""}
+                  onChange={(e) =>
+                    setExtractedQuery({
+                      query_name: extractedQuery?.osmquery || "",
+                      osmquery: e.target.value,
+                    })
+                  }
+                  rows={7}
+                  className="bg-slate-600 text-white"
+                  disabled={activeTab !== "manual"}
+                />
+              </div>
+              {queryState === "extracting_from_osm" && (
+                <p className="animate-bounce">Fetching from Overpass . . .</p>
+              )}
+            </div>
+          )}
+
+          {activeTab === "manual" && (
+            <label className="text-center self-start p-1 text-sm">
+              Name of your query
+            </label>
+          )}
+          <div className="w-full flex items-center justify-center gap-2">
+            <Input
+              type="email"
+              placeholder={
+                activeTab === "askgpt"
+                  ? "eg: get all restaurants"
+                  : "query name"
+              }
+              ref={inputRef}
+              onKeyDown={(e) => {
+                if (
+                  e.key === "Enter" &&
+                  !e.shiftKey &&
+                  inputRef?.current?.value !== ""
+                ) {
+                  e.preventDefault();
+                  extractFeatures(inputRef.current?.value || "");
+                }
+              }}
+            />
+          </div>
+          <Button
+            variant={"default"}
+            className={`my-2 w-full`}
+            onClick={() => {
+              if (inputRef?.current?.value !== "") {
                 extractFeatures(inputRef.current?.value || "");
+              } else {
+                inputRef.current?.focus();
               }
             }}
-          />
-        </div>
-        <Button
-          variant={"default"}
-          className={`m-2 w-full`}
-          onClick={() => {
-            if (inputRef?.current?.value !== "") {
-              extractFeatures(inputRef.current?.value || "");
-            } else {
-              inputRef.current?.focus();
+          >
+            {
+              <RunningSvg
+                className={`${
+                  ["idle", "extraction_done"].includes(queryState)
+                    ? "opacity-0 w-[1px]"
+                    : "opacity-100 w-[16px]"
+                }`}
+              />
             }
-          }}
-        >
-          {
-            <RunningSvg
-              className={`${
-                ["idle", "extraction_done"].includes(queryState)
-                  ? "opacity-0 w-[1px]"
-                  : "opacity-100 w-[16px]"
-              }`}
-            />
-          }
-          RUN
-        </Button>
+            RUN
+          </Button>
 
-        <Separator className="my-2" />
-        <Tabs value={activeTab} className="w-full mt-4">
-          <TabsList className="w-full">
-            <TabsTrigger
-              value="askgpt"
-              className={`flex-1 ${
-                activeTab === "askgpt" ? "border border-black" : ""
-              }`}
-              onClick={() => {
-                setActiveTab("askgpt");
-                inputRef.current!.value = "";
-                setQueryState("idle");
-                setExtractedQuery({ osmquery: "", query_name: "" });
-              }}
-            >
-              Ask GPT
-            </TabsTrigger>
-            <TabsTrigger
-              value="manual"
-              className={`flex-1 ${
-                activeTab === "manual" ? "border border-black" : ""
-              }`}
-              onClick={() => {
-                setActiveTab("manual");
-                setQueryState("idle");
-                inputRef.current!.value = extractedQuery?.query_name || "";
-              }}
-            >
-              Manual Query
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+          <Separator className="my-2" />
+          <Tabs value={activeTab} className="w-full mt-4">
+            <TabsList className="w-full">
+              <TabsTrigger
+                value="askgpt"
+                className={`flex-1 ${
+                  activeTab === "askgpt" ? "border border-black" : ""
+                }`}
+                onClick={() => {
+                  setActiveTab("askgpt");
+                  inputRef.current!.value = "";
+                  setQueryState("idle");
+                  setExtractedQuery({ osmquery: "", query_name: "" });
+                }}
+              >
+                Ask GPT
+              </TabsTrigger>
+              <TabsTrigger
+                value="manual"
+                className={`flex-1 ${
+                  activeTab === "manual" ? "border border-black" : ""
+                }`}
+                onClick={() => {
+                  setActiveTab("manual");
+                  setQueryState("idle");
+                  inputRef.current!.value = extractedQuery?.query_name || "";
+                }}
+              >
+                Manual Query
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
       </div>
     </main>
   );
