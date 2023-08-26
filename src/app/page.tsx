@@ -29,6 +29,7 @@ import { ChevronLeftSquare, ChevronRightSquare, Play } from "lucide-react";
 import Popup from "@/components/Maplibre/popup";
 import osmgptlogo from "@/assets/logos/osmgpt-noname.png";
 import Image from "next/image";
+import { motion as m } from "framer-motion";
 
 var osmtogeojson = require("@/lib/osmtogeojson");
 
@@ -221,7 +222,17 @@ export default function Home() {
       });
   }, [layers, map]);
   return (
-    <main className="flex min-h-screen flex-row ">
+    <m.main
+      initial={{ x: 300, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: 300, opacity: 0 }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+      }}
+      className="flex min-h-screen flex-row "
+    >
       <Toaster richColors position="top-right" />
       <div className="absolute z-30 p-2">
         <ReorderComponent layers={layers} setLayers={setLayers} map={map} />
@@ -397,6 +408,6 @@ export default function Home() {
           </Tabs>
         </div>
       </div>
-    </main>
+    </m.main>
   );
 }
