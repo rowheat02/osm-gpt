@@ -13,7 +13,6 @@ function MapContainer({
   style = {},
   children,
 }: MapContainerProps): ReactElement {
-  console.log("🚀 ~ file: MapContainer.tsx:16 ~ mapRef:", mapRef);
   const childrenArray = React.Children.toArray(children);
 
   return (

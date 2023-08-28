@@ -5,17 +5,10 @@ function useMapboxMap(options: any) {
   const [map, setMap] = useState<any | null>(null);
   const [maploaded, setMaploaded] = useState(false);
   const mapRef = useRef<HTMLDivElement | null>(null);
-  
-  console.log(
-    "🚀 ~ file: useMaplibreMap.ts:8 ~ useMapboxMap ~ mapRef:",
-    mapRef
-  );
 
   useEffect(() => {
-    if (!mapRef.current) {
-      console.error("Refrense to map not provided");
-      return;
-    }
+    if (!options?.renderMap || !!map) return;
+
     const opts = {
       container: mapRef.current,
       preserveDrawingBuffer: true,

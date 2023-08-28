@@ -219,7 +219,7 @@ export default function Sidebar({ layers, setLayers, map }: ISidebarProps) {
       <AppCard />
       <m.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 1, transition: { delay: 0.4 } }}
         className="px-2 h-full flex items-end justify-end flex-col w-full"
       >
         {queryState === "generating_query" && (

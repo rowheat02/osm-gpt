@@ -12,7 +12,7 @@ export default function SplashWindow() {
         <m.div
           initial={{ transform: "translateX(100%)", opacity: 0 }}
           animate={{ transform: "translateX(0%)", opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.5 }}
           className="image w-full h-full"
         >
           <Image
@@ -29,7 +29,7 @@ export default function SplashWindow() {
               <m.p
                 initial={{ transform: "translateX(100%)" }}
                 animate={{ transform: "translateX(0%)" }}
-                transition={{ duration: 0.5, delay: 0.25 * index }}
+                transition={{ duration: 0.5, delay: 0.15 * index }}
                 key={index}
                 className="text-[6rem] font-semibold leading-none"
               >
@@ -42,7 +42,7 @@ export default function SplashWindow() {
           <m.p
             initial={{ transform: "translateY(100%)" }}
             animate={{ transform: "translateY(0%)" }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="text-[1.5rem] font-semibold"
           >
             Easily Discover OpenStreetMap&apos;s Treasures

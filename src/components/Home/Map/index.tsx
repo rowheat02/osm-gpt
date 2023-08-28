@@ -1,7 +1,7 @@
 "use client";
 import MapContainer from "@/components/Maplibre/MapContainer";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import GeojsonLayer from "@/components/Maplibre/GeojsonLayer";
 
 import { Toaster } from "sonner";
@@ -55,7 +55,6 @@ export default function HomeMap({
   layers,
   setLayers,
 }: IHomeMapProps) {
-  console.log("🚀 ~ file: HomeMap index.tsx:58 ~ mapRef:", mapRef);
   return (
     <div className="flex h-screen w-full flex-row overflow-hidden">
       <Toaster richColors position="top-right" />
