@@ -50,11 +50,14 @@ const Popup: React.FC<PopupProps> = ({
   return (
     <div style={{ display: "none" }} className="mypop">
       {/* <div ref={popupRef}>{children}</div> */}
-      <div ref={popupRef} className="px-1 h-64">
+      <div
+        ref={popupRef}
+        className="px-1 max-h-64 !max-w-20 my-1.5 overflow-auto"
+      >
         {popupProperties &&
           Object.keys(popupProperties).map((prop, i) => {
             return (
-              <div className="flex even:bg-gray-200" key={`prop-${i}`}>
+              <div className="flex even:bg-gray-200 " key={`prop-${i}`}>
                 <span className="min-w-[120px] p-1 capitalize font-bold">
                   {prop}
                 </span>
