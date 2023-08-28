@@ -1,6 +1,5 @@
+"useClient";
 import { motion as m } from "framer-motion";
-import githubLogo from "@/assets/icons/github-icon.png";
-import background from "@/assets/logos/osmgpt-noname.png";
 import noNameLogo from "@/assets/logos/osmgpt-noname.png";
 import Image from "next/image";
 import RunningSvg from "@/assets/animatingsvg/run";

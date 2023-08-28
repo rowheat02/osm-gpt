@@ -5,13 +5,12 @@ import Image from "next/image";
 import RunningSvg from "@/assets/animatingsvg/run";
 
 export default function AppCard() {
-  const title = "OSM-GPT";
   return (
     <m.div
       initial={{
         height: "100vh",
-        width: "100vw",
-        position: "fixed",
+        width: "100%",
+        position: "absolute",
         top: 0,
         left: 0,
         backgroundColor: "#F6F8FB",
@@ -19,22 +18,21 @@ export default function AppCard() {
       }}
       animate={{
         position: "static",
-        width: "100%",
-        height: "25%",
+        height: "30%",
       }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="z-20 text-white  flex flex-col items-center gap-1 justify-center"
+      className="flex flex-col items-center gap-1 justify-center"
     >
-      <m.div
-        initial={{ width: "fit", height: "35%", overflow: "hidden" }}
-        animate={{ width: "fit", height: "25%" }}
-        transition={{ duration: 0.5 }}
-        className="image-cover w-fit h-[35%] overflow-hidden"
+      <div
+        // initial={{ width: "fit", height: "35%", overflow: "hidden" }}
+        // animate={{ width: "fit", height: "25%" }}
+        // transition={{ duration: 0.5 }}
+        className="image-cover w-fit h-[35%]"
       >
-        <m.div
+        <div
           // initial={{ transform: "translateX(100%)", opacity: 0 }}
-          animate={{ transform: "translateX(0%)", opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          //   animate={{ transform: "translateX(0%)", opacity: 1 }}
+          //   transition={{ duration: 0.5, delay: 0.2 }}
           className="image w-full h-full"
         >
           <Image
@@ -42,15 +40,14 @@ export default function AppCard() {
             alt="osm gpt logo"
             className="w-full h-full object-contain"
           />
-        </m.div>
-      </m.div>
-      <div className="content text-gray-700 text-center flex flex-col items-center justify-center  mt-2">
+        </div>
+      </div>
+      <div className="content text-gray-700 text-center flex flex-col items-center justify-center">
         <m.div
           initial={{ gap: "4px" }}
           animate={{ gap: "0px" }}
           className="title flex items-center gap-1"
         >
-          {/* {title.split("").map((item, index) => ( */}
           <div className="overflow-hidden h-fit">
             <m.p
               initial={{ fontSize: "6rem" }}
@@ -61,13 +58,12 @@ export default function AppCard() {
               OSM-GPT
             </m.p>
           </div>
-          {/* ))} */}
         </m.div>
         <div className=" overflow-hidden h-fit">
           <m.p
             initial={{ fontSize: "1.5rem", fontWeight: "bold" }}
             animate={{ fontSize: ".8rem", fontWeight: "400" }}
-            // transition={{ duration: 0.5, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
             className="text-[1.5rem] font-semibold"
           >
             Easily Discover OpenStreetMap&apos;s Treasures
@@ -83,13 +79,14 @@ export default function AppCard() {
         </m.a>
         <m.div
           initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          className="loading"
+          animate={{ opacity: 0, display: "hidden" }}
+          //   className="loading"
         >
           <RunningSvg className="opacity-100 w-[16px]" />
         </m.div>
-        <m.small animate={{ opacity: 0 }}>Just a moment please...</m.small>
-        {/* <Image src={githubLogo} alt="github logo" /> */}
+        <m.small animate={{ opacity: 0, display: "hidden" }}>
+          Just a moment please...
+        </m.small>
       </div>
     </m.div>
   );
