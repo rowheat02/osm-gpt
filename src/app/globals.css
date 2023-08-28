@@ -77,6 +77,27 @@
   }
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .maplibregl-popup-content {
   width: fit-content;
   height: fit-content;
@@ -84,8 +105,9 @@
   max-height: 300px;
   max-width: 300px;
   background-color: white;
-  opacity: 0.9;
+  opacity: 0.95;
   padding: 8px;
+  margin-top: 16px !important;
 }
 
 .maplibregl-popup-close-button {
@@ -96,7 +118,7 @@
   border-radius: 2px;
   cursor: pointer;
   position: absolute;
-  right: 9px !important;
+  right: 6px !important;
   top: 2px !important ;
   padding: 0px 2px;
   background-color: red;
