@@ -50,7 +50,7 @@ const mapopts = {
 
 export default function Home() {
   const [showSplash, setShowSplash] = useState<boolean>(true);
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const isLarge = useIsLarge();
   useEffect(() => {
     if (isLarge) setSidebarOpen(true);
@@ -112,8 +112,8 @@ export default function Home() {
             animate={{ transform: "translateX(0%)", opacity: 1 }}
             transition={{ duration: 0.4 }}
             className={`sidebar bg-red-600  ${
-              sidebarOpen ? "w-full" : "w-0"
-            } lg:w-1/4 h-screen overflow-hidden relative z-30`}
+              sidebarOpen ? "w-full absolute top-0 right-0 bottom-0" : "w-0"
+            } lg:w-1/4 h-screen overflow-hidden  z-30`}
           >
             <Sidebar map={map} setLayers={setLayers} layers={layers} />
           </m.div>
