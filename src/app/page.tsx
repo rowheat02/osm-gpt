@@ -75,10 +75,7 @@ export default function Home() {
   return (
     <div className="w-screen h-screen flex relative">
       <>
-        <m.div
-          // initial={{ width: "0%" }}
-          // animate={{ width: "75%" }}
-          // transition={{ duration: 0.3 }}
+        <div
           className={`map w-full ${
             sidebarOpen ? "w-0" : "w-full"
           } lg:w-3/4 h-screen overflow-hidden`}
@@ -90,7 +87,7 @@ export default function Home() {
             layers={layers}
             setLayers={setLayers}
           />
-        </m.div>
+        </div>
         <div className="w-fit  h-fit absolute top-2 right-2 cursor-pointer lg:hidden z-40 bg-gray-100 hover:vbg-gray-200 p-2 rounded-xl">
           {sidebarOpen ? (
             <ChevronRightSquare
