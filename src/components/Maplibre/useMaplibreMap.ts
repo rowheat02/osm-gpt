@@ -7,6 +7,8 @@ function useMapboxMap(options: any) {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!options?.renderMap || !!map) return;
+
     const opts = {
       container: mapRef.current,
       preserveDrawingBuffer: true,
@@ -21,7 +23,7 @@ function useMapboxMap(options: any) {
               // 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
             ],
             tileSize: 256,
-        
+
             maxzoom: 18,
           },
         },
