@@ -91,7 +91,7 @@ export default function Home() {
             setLayers={setLayers}
           />
         </m.div>
-        <div className="w-fit  h-fit absolute top-2 right-2 cursor-pointer lg:hidden z-10">
+        <div className="w-fit  h-fit absolute top-2 right-2 cursor-pointer lg:hidden z-40 bg-gray-100 hover:bg-gray-200 p-2 rounded-xl">
           {sidebarOpen ? (
             <ChevronRightSquare
               width={30}
@@ -113,7 +113,7 @@ export default function Home() {
             transition={{ duration: 0.4 }}
             className={`sidebar bg-red-600  ${
               sidebarOpen ? "w-full" : "w-0"
-            } lg:w-1/4 h-screen overflow-hidden relative`}
+            } lg:w-1/4 h-screen overflow-hidden relative z-30`}
           >
             <Sidebar map={map} setLayers={setLayers} layers={layers} />
           </m.div>
