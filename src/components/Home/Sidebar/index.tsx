@@ -74,9 +74,15 @@ interface ISidebarProps {
   map: any;
   layers: layer[];
   setLayers: React.Dispatch<React.SetStateAction<layer[]>>;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Sidebar({ layers, setLayers, map }: ISidebarProps) {
+export default function Sidebar({
+  layers,
+  setLayers,
+  map,
+  setSidebarOpen,
+}: ISidebarProps) {
   const [queryState, setQueryState] = useState<querystates>("idle");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -182,6 +188,7 @@ export default function Sidebar({ layers, setLayers, map }: ISidebarProps) {
           },
           ...layers,
         ]);
+        setSidebarOpen(false);
       }
       setQueryState("extraction_done");
     } catch (e: any) {
