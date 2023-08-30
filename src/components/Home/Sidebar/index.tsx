@@ -24,7 +24,6 @@ import RunningSvg from "@/assets/animatingsvg/run";
 import { Separator } from "@/components/ui/separator";
 
 import { Toaster, toast } from "sonner";
-import { ChevronLeftSquare, ChevronRightSquare, Play } from "lucide-react";
 import { motion as m } from "framer-motion";
 import AppCard from "./AppCard";
 

@@ -6,35 +6,9 @@ import RunningSvg from "@/assets/animatingsvg/run";
 
 export default function AppCard() {
   return (
-    <m.div
-      initial={{
-        height: "100vh",
-        width: "100%",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        backgroundColor: "#F6F8FB",
-        overflow: "hidden",
-      }}
-      animate={{
-        position: "static",
-        height: "30%",
-      }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="flex flex-col items-center gap-1 justify-center"
-    >
-      <div
-        // initial={{ width: "fit", height: "35%", overflow: "hidden" }}
-        // animate={{ width: "fit", height: "25%" }}
-        // transition={{ duration: 0.5 }}
-        className="image-cover w-fit h-[35%]"
-      >
-        <div
-          // initial={{ transform: "translateX(100%)", opacity: 0 }}
-          //   animate={{ transform: "translateX(0%)", opacity: 1 }}
-          //   transition={{ duration: 0.5, delay: 0.2 }}
-          className="image w-full h-full"
-        >
+    <div className="flex flex-col items-center gap-1 justify-center h-[30%]">
+      <div className="image-cover w-fit h-[35%]">
+        <div className="image w-full h-full">
           <Image
             src={noNameLogo}
             alt="osm gpt logo"
@@ -50,10 +24,10 @@ export default function AppCard() {
         >
           <div className="overflow-hidden h-fit">
             <m.p
-              initial={{ fontSize: "6rem" }}
-              animate={{ fontSize: "1.5rem" }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-[6rem] font-semibold leading-none"
+              initial={{ scale: 1.75 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="font-semibold leading-none text-[1.5rem]"
             >
               OSM-GPT
             </m.p>
@@ -61,10 +35,10 @@ export default function AppCard() {
         </m.div>
         <div className=" overflow-hidden h-fit">
           <m.p
-            initial={{ fontSize: "1.5rem", fontWeight: "bold" }}
-            animate={{ fontSize: ".8rem", fontWeight: "400" }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-[1.5rem] font-semibold"
+            initial={{ scale: 1.75 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="text-[.8rem] font-normal"
           >
             Easily Discover OpenStreetMap&apos;s Treasures
           </m.p>
@@ -88,6 +62,6 @@ export default function AppCard() {
           Just a moment please...
         </m.small>
       </div>
-    </m.div>
+    </div>
   );
 }

@@ -7,6 +7,8 @@ import { motion as m } from "framer-motion";
 import HomeMap from "@/components/Home/Map";
 import Sidebar from "@/components/Home/Sidebar";
 import useMapboxMap from "@/components/Maplibre/useMaplibreMap";
+import { useIsLarge } from "@/hooks/useMediaQuery";
+import { ChevronLeftSquare, ChevronRightSquare, Play } from "lucide-react";
 
 export type querystates =
   | "idle"
@@ -48,6 +50,11 @@ const mapopts = {
 
 export default function Home() {
   const [showSplash, setShowSplash] = useState<boolean>(true);
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
+  const isLarge = useIsLarge();
+  useEffect(() => {
+    if (isLarge) setSidebarOpen(true);
+  }, [isLarge]);
 
   useEffect(() => {
     const timerInstance = setTimeout(() => {
@@ -63,17 +70,18 @@ export default function Home() {
   });
 
   const [layers, setLayers] = useState<layer[]>([]);
-
   if (showSplash) return <SplashWindow />;
 
   return (
-    <div className="w-screen h-screen flex">
+    <div className="w-screen h-screen flex relative">
       <>
         <m.div
-          initial={{ width: "0%" }}
-          animate={{ width: "75%" }}
-          transition={{ duration: 0.3 }}
-          className="map w-3/4 h-screen overflow-hidden"
+          // initial={{ width: "0%" }}
+          // animate={{ width: "75%" }}
+          // transition={{ duration: 0.3 }}
+          className={`map w-full ${
+            sidebarOpen ? "w-0" : "w-full"
+          } lg:w-3/4 h-screen overflow-hidden`}
         >
           <HomeMap
             map={map}
@@ -83,14 +91,33 @@ export default function Home() {
             setLayers={setLayers}
           />
         </m.div>
-        <m.div
-          initial={{ width: "100%" }}
-          animate={{ width: "25%" }}
-          transition={{ duration: 0.3 }}
-          className="sidebar w-1/4 h-screen overflow-hidden"
-        >
-          <Sidebar map={map} setLayers={setLayers} layers={layers} />
-        </m.div>
+        <div className="w-fit  h-fit absolute top-2 right-2 cursor-pointer lg:hidden z-10">
+          {sidebarOpen ? (
+            <ChevronRightSquare
+              width={30}
+              height={30}
+              onClick={() => setSidebarOpen((prev) => !prev)}
+            />
+          ) : (
+            <ChevronLeftSquare
+              width={30}
+              height={30}
+              onClick={() => setSidebarOpen((prev) => !prev)}
+            />
+          )}
+        </div>
+        {sidebarOpen && (
+          <m.div
+            initial={{ transform: "translateX(50%)", opacity: 0 }}
+            animate={{ transform: "translateX(0%)", opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            className={`sidebar bg-red-600  ${
+              sidebarOpen ? "w-full" : "w-0"
+            } lg:w-1/4 h-screen overflow-hidden relative`}
+          >
+            <Sidebar map={map} setLayers={setLayers} layers={layers} />
+          </m.div>
+        )}
       </>
     </div>
   );
