@@ -120,6 +120,7 @@ export default function Home() {
               setLayers={setLayers}
               layers={layers}
               setSidebarOpen={setSidebarOpen}
+              isLarge={isLarge}
             />
           </m.div>
         )}
