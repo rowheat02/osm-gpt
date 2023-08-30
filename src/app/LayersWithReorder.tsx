@@ -99,7 +99,7 @@ function LayersReorder({ layers, setLayers, map }: layerReorderPropType) {
   };
 
   return (
-    <div className="LayersReorder z-10">
+    <div className="LayersReorder">
       {/* <h1>Drag and Drop</h1> */}
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="todo">
