@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import mapgl from "maplibre-gl";
+// Search 
+import { MapLibreSearchControl } from "@stadiamaps/maplibre-search-box";
+import "@stadiamaps/maplibre-search-box/dist/style.css";
 
 function useMapboxMap(options: any) {
   const [map, setMap] = useState<any | null>(null);
@@ -42,6 +45,8 @@ function useMapboxMap(options: any) {
     };
 
     const mapInstance = new mapgl.Map(opts);
+    // Added SearchLocation Tool
+    mapInstance.addControl(new MapLibreSearchControl(), 'top-left');
     // mapInstance.addControl(
     //   new mapgl.NavigationControl(),
     //   'top-left'
